@@ -1,0 +1,216 @@
+@extends('admin.layout.master')
+@section('title', 'Pelanggaran | Appoint')
+@section('menuDataPelanggaran', 'active')
+@section('menuPelanggaran', 'active')
+
+@section('content')
+    <div class="row">
+        <div class="col-lg">
+            <form action="{{ route('data-pelanggaran.update', $pelanggarans->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="card">
+                    <div class="card-header">
+                        <a href="{{ route('data-pelanggaran.index') }}" class="btn btn-primary">
+                            <i class="bx bx-left-arrow-alt"></i>
+                            Kembali
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bx bx-save"></i>
+                            Simpan Data
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label>Tanggal</label>
+                                    <input type="date" name="tanggal"
+                                        class="form-control @error('tanggal') is-invalid @enderror"
+                                        value="{{ old('tanggal', $pelanggarans->tanggal) }}">
+                                    @error('tanggal')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Pilih Jenis Pelanggaran</label>
+                                    <select name="jenispelanggaran_id"
+                                        class="form-control @error('jenispelanggaran_id') is-invalid @enderror"
+                                        id="selectedJenis">
+                                        <option value="" selected>Pilih Jenis Pelanggaran</option>
+                                        @foreach ($jenis as $data)
+                                            <option value="{{ $data->id }}">{{ $data->jenispelanggaran ?? '-' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('jenispelanggaran_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Pilih Nama Pelanggaran</label>
+                                    <select name="namapelanggaran_id"
+                                        class="form-control @error('namapelanggaran_id') is-invalid @enderror"
+                                        id="selectedNama">
+                                        <option value="" selected>Pilih Nama Pelanggaran</option>
+                                    </select>
+                                    @error('namapelanggaran_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Pilih Guru</label>
+                                    <select name="guru_id" class="form-control @error('guru_id') is-invalid @enderror"
+                                        id="selectedGuru">
+                                        <option value="" selected>Pilih Guru</option>
+                                        @foreach ($gurus as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ $pelanggarans->guru_id == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nip ?? '-' }}
+                                                - {{ $data->nama ?? '-' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('guru_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Pilih Siswa</label>
+                                    <select name="siswa_id" class="form-control @error('siswa_id') is-invalid @enderror"
+                                        id="selectedSiswa">
+                                        <option value="" selected>Pilih Siswa</option>
+                                        @foreach ($siswas as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ $pelanggarans->siswa_id == $data->id ? 'selected' : '' }}>
+                                                {{ $data->nisn ?? '-' }}
+                                                - {{ $data->nama ?? '-' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('siswa_id')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label>Keterangan</label>
+                                    <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" rows="5"
+                                        placeholder="Masukan keterangan">{{ old('keterangan', $pelanggarans->keterangan ?? '-') }}</textarea>
+                                    @error('keterangan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Pilih Status</label>
+                                    <select name="status" class="form-control @error('status') is-invalid @enderror"
+                                        id="selectedStatus">
+                                        <option value="" selected>Pilih Status</option>
+                                        <option value="Diterima"
+                                            {{ $pelanggarans->status == 'Diterima' ? 'selected' : '' }}>
+                                            Diterima</option>
+                                        <option value="Proses" {{ $pelanggarans->status == 'Proses' ? 'selected' : '' }}>
+                                            Proses
+                                        </option>
+                                        <option value="Ditolak" {{ $pelanggarans->status == 'Ditolak' ? 'selected' : '' }}>
+                                            Ditolak
+                                        </option>
+                                    </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Bukti Pelanggaran</label>
+                                    <input type="file" name="bukti"
+                                        class="form-control @error('bukti') is-invalid @enderror">
+                                    @error('bukti')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+@push('custom-script')
+    <script>
+        $(document).ready(function() {
+            $('#selectedJenis').select2({
+                theme: 'bootstrap4',
+            });
+            $('#selectedNama').select2({
+                theme: 'bootstrap4',
+            });
+            $('#selectedGuru').select2({
+                theme: 'bootstrap4',
+            });
+            $('#selectedSiswa').select2({
+                theme: 'bootstrap4',
+            });
+            $('#selectedStatus').select2({
+                theme: 'bootstrap4',
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#selectedJenis').on('change', function() {
+                let id_jenis = $(this).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/data-pelanggaran/jqueryNamaPelanggaran",
+                    data: {
+                        id_jenis: id_jenis
+                    },
+                    cache: false,
+                    success: function(data) {
+                        $('#selectedNama').html(data);
+                    },
+                    error: function(data) {
+                        console.log('error: ', data);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
