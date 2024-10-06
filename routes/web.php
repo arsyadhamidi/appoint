@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminSiswaController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ForgotPassword\ForgotPasswordController;
+use App\Http\Controllers\Guru\GuruBiodataController;
 use App\Http\Controllers\Guru\GuruPelanggaranController;
 use App\Http\Controllers\Kepala\KepalaPelanggaranController;
 use App\Http\Controllers\Landing\LandingController;
@@ -65,10 +66,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/edit-biodata/siswa/{id}', [DashboardController::class, 'editbiodatasiswa'])->name('edit-biodatasiswa.editbiodatasiswa');
     Route::post('/siswa-kelas/jquerySiswaKelas', [DashboardController::class, 'jquerySiswaKelas'])->name('siswa-kelas.jquerySiswaKelas');
     Route::post('/edit-biodata/updatesiswa/{id}', [DashboardController::class, 'updatesiswa'])->name('edit-biodataguru.updatesiswa');
-
-    // Guru
-    Route::get('/edit-biodata/guru/{id}', [DashboardController::class, 'editbiodataguru'])->name('edit-biodataguru.editbiodataguru');
-    Route::post('/edit-biodata/updateguru/{id}', [DashboardController::class, 'updateguru'])->name('edit-biodataguru.updateguru');
 
     // Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
@@ -163,6 +160,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Guru
     Route::group(['middleware' => [CekLevel::class . ':3']], function () {
+
+        // Biodata
+        Route::get('/biodata-guru', [GuruBiodataController::class, 'index'])->name('biodata-guru.index');
+        Route::get('/biodata-guru/edit/{id}', [GuruBiodataController::class, 'edit'])->name('biodata-guru.edit');
+        Route::post('/biodata-guru/update/{id}', [GuruBiodataController::class, 'update'])->name('biodata-guru.update');
+
         // Pelanggaran
         Route::get('/guru-pelanggaran', [GuruPelanggaranController::class, 'index'])->name('guru-pelanggaran.index');
         Route::get('/guru-pelanggaran/generateexcel', [GuruPelanggaranController::class, 'generateexcel'])->name('guru-pelanggaran.generateexcel');

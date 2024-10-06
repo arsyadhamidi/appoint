@@ -5,11 +5,11 @@
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <form action="{{ route('edit-biodataguru.updateguru', $gurus->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('biodata-guru.update', $gurus->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="/dashboard" class="btn btn-primary">
+                        <a href="{{ route('biodata-guru.index') }}" class="btn btn-primary">
                             <i class="bx bx-left-arrow-alt"></i>
                             Kembali
                         </a>
