@@ -1,86 +1,54 @@
 <div class="row">
-    <div class="col-lg">
-        @php
-            $siswas = \App\Models\Siswa::where('id', Auth()->user()->siswa_id)->first();
-        @endphp
+    <div class="col-lg-12 mb-4 order-0">
         <div class="card">
-            <div class="card-header">
-                <a href="{{ route('edit-biodatasiswa.editbiodatasiswa', $siswas->id) }}" class="btn btn-primary">
-                    <i class="bx bx-edit"></i>
-                    Edit Biodata
-                </a>
+            <div class="d-flex align-items-end row">
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Selamat Datang {{ Auth()->user()->name ?? '-' }}! 🎉</h5>
+                        <p class="mb-4">
+                            Senang bertemu lagi! 🌈 Semangat untuk hasil luar biasa di depan mata.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                    <div class="card-body pb-0 px-0 px-md-4">
+                        <img src="{{ asset('admin/assets/img/illustrations/man-with-laptop-light.png') }}"
+                            height="140" alt="View Badge User"
+                            data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                            data-app-light-img="illustrations/man-with-laptop-light.png" />
+                    </div>
+                </div>
             </div>
-            <div class="card-body table-responsive">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th colspan="3">Biodata Siswa</th>
-                    </tr>
-                    <tr>
-                        <td>NISN</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->nisn ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Nama Lengkap</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->nama ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>TTL</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->tmp_lahir ?? '-' }}, {{ $siswas->tgl_lahir ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Kelamin</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->jk ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Jurusan</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->jurusan->namajurusan ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Kelas</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->kelas->kelas ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Telepon</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->telp ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->email ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Telepon Orang Tua</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->telp_ortu ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td style="width: 3%">:</td>
-                        <td>{{ $siswas->alamat ?? '-' }}</td>
-                    </tr>
-                </table>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered table-striped" id="myTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%; text-align:center">No.</th>
+                                <th style="text-align:center">Jenis</th>
+                                <th style="text-align:center">Nama</th>
+                                <th style="text-align:center">Point</th>
+                                <th style="text-align:center">Sanksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($namaGurus as $data)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $data->jenis->jenispelanggaran ?? '-' }}</td>
+                                    <td>{{ $data->nama ?? '-' }}</td>
+                                    <td>{{ $data->point ?? '-' }}</td>
+                                    <td>{{ $data->sanksi ?? '-' }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@push('custom-script')
-    <script>
-        $(document).ready(function() {
-            @if (Session::has('success'))
-                toastr.success("{{ Session::get('success') }}");
-            @endif
-
-            @if (Session::has('error'))
-                toastr.error("{{ Session::get('error') }}");
-            @endif
-        });
-    </script>
-@endpush

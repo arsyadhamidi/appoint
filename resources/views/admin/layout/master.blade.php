@@ -198,6 +198,13 @@
                             </a>
                         </li>
                     @elseif(Auth()->user()->level_id == '2')
+                        {{-- Biodata --}}
+                        <li class="menu-item @yield('menuBiodataSiswa')">
+                            <a href="{{ route('biodata-siswa.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-user"></i>
+                                <div data-i18n="Analytics">Biodata Diri</div>
+                            </a>
+                        </li>
                         {{-- Pelanggaran --}}
                         <li class="menu-item @yield('menuPelanggaranSiswa')">
                             <a href="{{ route('siswa-pelanggaran.index') }}" class="menu-link">

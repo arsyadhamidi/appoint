@@ -1,16 +1,15 @@
 @extends('admin.layout.master')
-@section('title', 'Data Siswa | Appoint')
-@section('menuDashboard', 'active')
+@section('title', 'Biodata | Appoint')
+@section('menuBiodataSiswa', 'active')
 
 @section('content')
     <div class="row">
         <div class="col-lg">
-            <form action="{{ route('edit-biodataguru.updatesiswa', $siswas->id) }}" method="POST"
-                enctype="multipart/form-data">
+            <form action="{{ route('biodata-siswa.update', $siswas->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <a href="/dashboard" class="btn btn-primary">
+                        <a href="{{ route('biodata-siswa.index') }}" class="btn btn-primary">
                             <i class="bx bx-left-arrow-alt"></i>
                             Kembali
                         </a>
@@ -226,7 +225,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: "/siswa-kelas/jquerySiswaKelas",
+                    url: "/biodata-siswa/jquerySiswaKelas",
                     data: {
                         id_jurusan: id_jurusan
                     },

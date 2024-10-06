@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('title', 'Biodata | Appoint')
-@section('menuDashboard', 'active')
+@section('menuBiodataGuru', 'active')
 
 @section('content')
     <div class="row">

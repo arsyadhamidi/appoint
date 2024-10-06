@@ -19,6 +19,7 @@ use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\RecoverPassword\RecoverPasswordController;
 use App\Http\Controllers\Registrasi\RegistrasiController;
 use App\Http\Controllers\Setting\SettingController;
+use App\Http\Controllers\Siswa\SiswaBiodataController;
 use App\Http\Controllers\Siswa\SiswaPelanggaranController;
 use App\Http\Controllers\Waka\WakaJenisPelanggaranController;
 use App\Http\Controllers\Waka\WakaNamaPelanggaranController;
@@ -61,11 +62,6 @@ Route::post('/recover-password/store', [RecoverPasswordController::class, 'store
 Route::group(['middleware' => ['auth', 'verified']], function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index']);
-
-    // Siswa
-    Route::get('/edit-biodata/siswa/{id}', [DashboardController::class, 'editbiodatasiswa'])->name('edit-biodatasiswa.editbiodatasiswa');
-    Route::post('/siswa-kelas/jquerySiswaKelas', [DashboardController::class, 'jquerySiswaKelas'])->name('siswa-kelas.jquerySiswaKelas');
-    Route::post('/edit-biodata/updatesiswa/{id}', [DashboardController::class, 'updatesiswa'])->name('edit-biodataguru.updatesiswa');
 
     // Setting
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
@@ -155,6 +151,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Guru
     Route::group(['middleware' => [CekLevel::class . ':2']], function () {
+        // Siswa
+        Route::get('/biodata-siswa/', [SiswaBiodataController::class, 'index'])->name('biodata-siswa.index');
+        Route::get('/biodata-siswa/edit/{id}', [SiswaBiodataController::class, 'edit'])->name('biodata-siswa.edit');
+        Route::post('/biodata-siswa/jquerySiswaKelas', [SiswaBiodataController::class, 'jquerySiswaKelas'])->name('biodata-siswa.jquerySiswaKelas');
+        Route::post('/biodata-siswa/update/{id}', [SiswaBiodataController::class, 'update'])->name('biodata-siswa.update');
+
         Route::get('/siswa-pelanggaran', [SiswaPelanggaranController::class, 'index'])->name('siswa-pelanggaran.index');
     });
 
