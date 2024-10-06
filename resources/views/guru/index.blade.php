@@ -24,6 +24,9 @@
     <div class="col-lg-12">
         <div class="mb-3">
             <div class="card">
+                <div class="card-header">
+                    Tata Tertib dan Penilaian Pelanggaran
+                </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped" id="myTable">
                         <thead>
