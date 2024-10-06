@@ -43,6 +43,9 @@ class DashboardController extends Controller
         $namaAdmins = NamaPelanggaran::count();
         $pelanggaranAdmins = Pelanggaran::count();
 
+        // Guru
+        $namaGurus = NamaPelanggaran::latest()->get();
+
         return view('admin.dashboard.index', [
             'data' => $data,
             'bulan' => $bulan,
@@ -55,6 +58,8 @@ class DashboardController extends Controller
             'jenisAdmins' => $jenisAdmins,
             'namaAdmins' => $namaAdmins,
             'pelanggaranAdmins' => $pelanggaranAdmins,
+
+            'namaGurus' => $namaGurus,
         ]);
     }
 
