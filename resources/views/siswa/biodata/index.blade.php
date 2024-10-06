@@ -67,6 +67,18 @@
                             <td style="width: 3%">:</td>
                             <td>{{ $siswas->alamat ?? '-' }}</td>
                         </tr>
+                        <tr>
+                            <td style="vertical-align: top">Foto Profile</td>
+                            <td style="width: 3%">:</td>
+                            <td>
+                                @if ($siswas->foto_siswa)
+                                    <img src="{{ asset('storage/' . $siswas->foto_siswa) }}" class="img-fluid"
+                                        width="150" alt="">
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

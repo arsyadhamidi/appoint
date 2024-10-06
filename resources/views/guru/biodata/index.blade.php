@@ -52,6 +52,18 @@
                             <td style="width: 3%">:</td>
                             <td>{{ $gurus->alamat ?? '-' }}</td>
                         </tr>
+                        <tr>
+                            <td style="vertical-align: top">Foto Profile</td>
+                            <td style="width: 3%">:</td>
+                            <td>
+                                @if ($gurus->foto_guru)
+                                    <img src="{{ asset('storage/' . $gurus->foto_guru) }}" class="img-fluid" width="150"
+                                        alt="">
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>
